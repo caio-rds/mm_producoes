@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 15, 15, 15;
+  --red-furia: 220, 38, 38;
+  --glow-red: 0 0 15px rgba(220, 38, 38, 0.7);
+  --primary-blue:rgba(38, 117, 220, 0.8);
+}
+
+/* Estilizações base */
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+          to bottom,
+          rgb(var(--background-start-rgb)),
+          rgb(var(--background-end-rgb))
+  )
+  rgb(var(--background-start-rgb));
+  font-family: 'Rajdhani', sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(6, 1, 45, 0.5) rgba(17, 17, 17);
+}
+
+/* Fonte especial para elementos gaming */
+.font-gaming {
+  font-family: 'Rajdhani', var(--font-geist-sans), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Estilização para cards com efeito gamer */
+.gamer-card {
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  isolation: isolate;
+}
+
+.gamer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100px;
+  background: linear-gradient(90deg, transparent, rgba(38, 117, 220, 0.8), transparent);
+  animation: scan 3s linear infinite;
+  z-index: -1;
+}
+
+/* Efeito de borda brilhante */
+.shadow-neon-red {
+  box-shadow: 0 0 5px rgba(33, 36, 66, 0.3), 0 0 10px rgba(15, 13, 58, 0.2);
+}
+
+/* Botões com estilo gamer */
+.gamer-button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.gamer-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+  );
+  transition: all 0.5s ease;
+}
+
+.gamer-button:hover::before {
+  left: 100%;
+}
+
+/* Efeito de contorno */
+.gamer-glow {
+  box-shadow: var(--primary-blue);
+}
+
+/* Cards de estatísticas com estilo gamer */
+.gamer-stats-card {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gamer-stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 10px rgba(21, 23, 49, 0.3);
+}
+
+.gamer-tabs {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cards de partidas com hover estilo gamer */
+.match-card {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Animações */
+@keyframes scan {
+  0% {
+    left: -100px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(220, 38, 38, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 38, 38, 0.7);
+}
+
+/* Seleção de texto personalizada */
+::selection {
+  background-color: rgba(220, 38, 38, 0.7);
+  color: white;
+}
+
+input[type='text'], input[type='password'], textarea{
+  outline: none;
+  border: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
