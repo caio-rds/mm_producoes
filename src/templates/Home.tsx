@@ -1,5 +1,21 @@
 import {motion} from "framer-motion";
-import {ArrowRight} from "lucide-react";
+import useThemeContext from "../hooks/useThemeContext.tsx";
+import { useMediaQuery } from "react-responsive"
+import Banner from "../components/banner";
+import {useState} from "react";
+import HiddenButton from "../components/HiddenButton.tsx";
+import CCarousel from "../components/Carousel.tsx";
+import type {ServiceType} from "../@types";
+import maquiagem from "../assets/maquiagem.jpg";
+import penteados from "../assets/penteados.jpg";
+import tatuagem from "../assets/tatuagem.jpeg";
+import pinturaArtistica from "../assets/pintura_artistica.jpg";
+import terere from "../assets/terere.jpg";
+import trancas from "../assets/trancas.png";
+import Contact from "../components/Contact.tsx";
+import TestimonialsSection from "../components/Testmonial.tsx";
+
+
 
 const featuredEvents = [
     {
@@ -22,82 +38,183 @@ const featuredEvents = [
     }
 ];
 
-const categories = [
+const services: ServiceType[] = [
     {
-        name: "Festas",
-        icon: <span className="text-xl">🎉</span>
+        "name": "Camarim Completo",
+        "icon": <span className="text-xl">💄</span>,
+        "contain": [
+            {
+                title: "Pintura Artística",
+                image: pinturaArtistica
+            },
+            {
+                title: "Tatuagem",
+                image: tatuagem
+            },
+            {
+                title: "Penteados",
+                image: penteados
+            },
+            {
+                title: "Tereré",
+                image: terere
+            },
+            {
+                title: "Tranças",
+                image: trancas
+            },
+            {
+                title: "Maquiagem de Passeio",
+                image: maquiagem
+            }
+        ],
+        "description": "Um espaço dedicado para embelezamento e diversão, com profissionais qualificados para atender a todas as idades.",
     },
     {
-        name: "Aniversários",
-        icon: <span className="text-xl">🎂</span>
+        "name": "Recreação Esportiva",
+        "icon": <span className="text-xl">🏃</span>,
+        "contain": [
+            {
+                title: "Circuito",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Revezamento",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Joguem Pool",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Colheita",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            }
+        ],
+        "description": "Atividades esportivas e recreativas para promover a interação e o trabalho em equipe entre os participantes."
     },
     {
-        name: "Shows",
-        icon: <span className="text-xl">🎵</span>
+        "name": "Animação Aquática",
+        "icon": <span className="text-xl">🏊</span>,
+        "contain": [
+            {
+                title: "Corrida das Boias",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Bandeirinha Aquática",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Futebol Aquático",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Queimado Aquático",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Colheita Aquática",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Bolha Humana",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            }
+        ],
+        "description": "Atividades aquáticas para animar e refrescar os participantes, garantindo diversão e segurança.",
     },
     {
-        name: "Exibições",
-        icon: <span className="text-xl">🖼️</span>
-    },
-    {
-        name: "Workshop",
-        icon: <span className="text-xl">🔨</span>
-    },
-    {
-        name: "Outros",
-        icon: <span className="text-xl">✨</span>
+        "name": "Animação Show",
+        "icon": <span className="text-xl">🎤</span>,
+        "contain": [
+            {
+                title: "Passa ou Repassa",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Bastão",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Alta Tensão",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Pato",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                title: "Feira",
+                image: "https://images.unsplash.com/photo-1593642632823-1b4d2f4c5e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            }
+        ],
+        "description": "Shows e apresentações para entreter os participantes, com atividades dinâmicas e interativas.",
     }
 ];
 
 const Home = () => {
+    const {darkMode} = useThemeContext();
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+    const [isOpen, setIsOpen] = useState<number>(0);
+
     return (
-        <>
-            <section className="relative overflow-hidden">
-                <div className="container mx-auto px-4 pt-12 pb-20 md:pt-24 md:pb-32">
-                    <div className="max-w-2xl">
-                        <motion.h1
-                            className="text-4xl md:text-6xl font-light leading-tight tracking-tighter mb-6"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                        >
-                            Descubra momentos inesquecíveis <span className="font-normal">prontos para acontecer</span>
-                        </motion.h1>
+        <div className="flex flex-col items-center justify-center">
+            <Banner isMobile={isMobile} darkMode={darkMode}/>
 
-                        <motion.p
-                            className="text-lg text-gray-600 mb-8 md:pr-12"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                        >
-                            De reuniões íntimas a grandes celebrações, encontre eventos que combinem com seu humor e estilo.
-                        </motion.p>
+            <section className="py-16 md:py-24">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-20"
+                    >
+                        <h2 className="text-4xl lg:text-6xl font-light text-gray-900 mb-6">
+                            Nossos
+                            <span className="block font-medium italic">Serviços</span>
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                            Oferecemos uma gama completa de serviços para transformar sua visão em realidade,
+                            cuidando de cada detalhe com excelência e sofisticação.
+                        </p>
+                    </motion.div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            <div className="inline-flex items-center text-lg font-medium group">
-                                Ver Eventos
-                                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
-                                    <ArrowRight className="h-5 w-5" />
-                                </span>
-                            </div>
-                        </motion.div>
+                    <div className="flex-col md:grid-cols-3 gap-4 justify-center items-center border-2 border-gray-200 rounded-md p-4 w-[80vw] md:w-[50vw] mx-auto">
+                        <div className="flex items-center justify-start w-full gap-1">
+                            {services.map((service, index) => (
+                                <HiddenButton
+                                    key={index}
+                                    onClick={() => {setIsOpen(index)}}
+                                    label={service.name}
+                                    icon={service.icon}
+                                    isOpen={isOpen === index}
+                                    theme={darkMode} />
+                            ))}
+                        </div>
+
+                        <CCarousel>
+                            {services[isOpen]?.contain.map((item, index) => (
+                                <div key={index} className="w-88 h-120 rounded-2xl mt-3 flex items-center justify-center">
+                                    <div className="text-center">
+                                        <h3 className="text-lg font-bold">{item.title}</h3>
+                                        {typeof item.image === "string" ? (
+                                            <img src={item.image} alt={item.title} className="rounded-md w-90 h-112 object-cover mt-2 object-center" />
+                                        ) : (
+                                            item.image
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </CCarousel>
                     </div>
                 </div>
-
-                <motion.div
-                    className="absolute -right-24 md:right-0 -bottom-36 md:-bottom-24 w-3/4 md:w-1/2 h-96 rounded-full bg-yellow-50"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                />
             </section>
 
+
             {/* Featured Events */}
-            <section className="bg-gray-50 py-16 md:py-24 relative overflow-hidden">
+            <section className={`${darkMode ? 'bg-gray-900' : 'bg-gray-50'} py-16 md:py-24 relative overflow-hidden`}>
                 <div className="container mx-auto px-4">
                     <motion.h2
                         className="text-2xl md:text-3xl font-light mb-12 tracking-tight"
@@ -136,20 +253,35 @@ const Home = () => {
             </section>
 
             {/* Categories Section */}
-            <section className="py-16 md:py-24">
-                <div className="container mx-auto px-4">
-                    <motion.h2
-                        className="text-2xl md:text-3xl font-light mb-12 tracking-tight"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        Procure por categoria
-                    </motion.h2>
+            <TestimonialsSection />
+            <Contact />
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        {categories.map((category, index) => (
+        </div>
+    )
+
+}
+
+export default Home;
+
+
+
+
+/*
+<motion.div
+                                key={index}
+                                className="flex flex-col items-center p-4 bg-gray-50 hover:bg-gray-100 rounded-md transition-colors cursor-pointer"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.05 }}
+                            >
+                                <div className="w-20 h-20 rounded-full flex items-center justify-center bg-white mb-3">
+                                    {service.icon}
+                                </div>
+                                <p className="text-sm font-medium">{service.name}</p>
+                            </motion.div>
+
+ {categories.map((category, index) => (
                             <motion.div
                                 key={index}
                                 className="flex flex-col items-center p-4 bg-gray-50 hover:bg-gray-100 rounded-md transition-colors cursor-pointer"
@@ -164,12 +296,54 @@ const Home = () => {
                                 <p className="text-sm font-medium">{category.name}</p>
                             </motion.div>
                         ))}
-                    </div>
-                </div>
-            </section>
-        </>
-    )
 
-}
 
-export default Home;
+
+Orçamento
+📍 Equipe
+👉 5 pessoas
+
+📍 Som completo
+
+📍camarim completo
+👉 Pintura artística
+👉 tatuagem
+👉 penteados
+👉 terere
+👉 tranças
+👉 Maquiagem de passeio
+
+📍 Recreação esportiva
+👉 circuito
+👉 revezamento
+👉 Joguem pool
+👉 colheita
+👉 Entre outras
+
+📍Animação Aquática
+(EM CASO DE PISCINA)
+
+👉corrida das boias
+👉 Bandeirinha Aquática
+👉 futebol aquático
+👉queimado aguatico
+👉 colheita Aquática
+👉bolha humana
+(Incluído)
+👉 Entre Outras
+
+📍 Animação show
+👉 Passa ou repassa
+👉 bastão
+👉 alta tensão
+👉 Pato
+👉 feira
+👉 pega bolinhas
+
+https://mmproducoes.my.canva.site/apresentacaomm
+https://www.instagram.com/mmanimashow?igsh=dnNobjl3angxanJl
+ */
+
+
+//
+//

@@ -11,7 +11,7 @@ export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
         const root = document.documentElement;
         if (mode) {
             root.classList.add('dark');
-            root.style.setProperty('--bg-color', '#131313');
+            root.style.setProperty('--bg-color', '#1a202c');
             root.style.setProperty('--text-color', '#f7fafc');
         } else {
             root.classList.remove('dark');

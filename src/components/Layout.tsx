@@ -1,7 +1,9 @@
-import { Calendar, Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import {type ReactNode, useState} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useThemeContext from "../hooks/useThemeContext.tsx";
+import whiteLogo from "../assets/whiteLogo.png";
+import darkLogo from "../assets/darkLogo.png";
 
 
 function Layout({children}: { children: ReactNode }) {
@@ -19,22 +21,29 @@ function Layout({children}: { children: ReactNode }) {
         transition: { duration: 0.3 }
     };
 
-    const { darkMode } = useThemeContext();
+    const sections: { name: string, path: string }[] = [
+        {name: "Início", path: "home"},
+        {name: "Eventos", path: "events"},
+        {name: "Detalhes", path: "details"}
+    ]
+
+    const { darkMode, toggleDarkMode } = useThemeContext();
+
+    const goTo = (path: string) => {
+        window.location.href = `/${path}`;
+    }
 
     return (
-        <div className="min-h-screen bg-white font-sans text-gray-900">
-            <header className="fixed top-0 left-0 right-0 z-10 bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-100">
+        <div className={`min-h-screen ${ darkMode ? 'bg-gray-900 text-gray-100' : 'bg-white text-gray-900'} font-sans text-gray-900`}>
+            <header className={`fixed top-0 left-0 right-0 z-10 ${ darkMode ? 'bg-gray-900 text-gray-100 border-gray-900 ' : 'bg-white border-gray-100 text-gray-900' } bg-opacity-95 backdrop-blur-sm border-b`}>
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                     <div className="flex items-center gap-2">
-                        <Calendar className="h-6 w-6 text-black" />
+                        <img src={darkMode ? whiteLogo : darkLogo} alt="Logo" className="h-10 w-10"/>
                         <span className="text-xl font-light tracking-tight">MM Produções</span>
                     </div>
 
                     <div className="md:hidden">
-                        <button
-                            onClick={() => setMenuOpen(!menuOpen)}
-                            className="p-2 focus:outline-none"
-                        >
+                        <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 focus:outline-none">
                             {menuOpen ? (
                                 <X className="h-6 w-6" />
                             ) : (
@@ -45,6 +54,7 @@ function Layout({children}: { children: ReactNode }) {
 
                     <AnimatePresence mode="wait">
                         <motion.div
+                            onClick={() => toggleDarkMode(!darkMode)}
                             key={darkMode ? 'dark' : 'light'}
                             initial={{ y: -20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
@@ -60,21 +70,16 @@ function Layout({children}: { children: ReactNode }) {
                     </AnimatePresence>
 
                     <nav className="hidden md:flex items-center gap-8">
-                        <div
-                            className={`text-sm hover:text-black transition-colors text-gray-500}`}
-                        >
-                            Início
-                        </div>
-                        <div
-                            className={`text-sm hover:text-black transition-colors text-gray-500}`}
-                        >
-                            Eventos
-                        </div>
-                        <div
-                            className={`text-sm hover:text-black transition-colors text-gray-500}`}
-                        >
-                            Detalhes
-                        </div>
+                        {sections.map((section) => (
+                            <div
+                                key={section.path}
+                                className={`text-sm hover:text-black transition-colors text-gray-500}`}
+                                onClick={() => goTo(section.path)}
+                                role={"button"}
+                                >
+                                {section.name}
+                            </div>
+                        ))}
                     </nav>
                 </div>
             </header>
@@ -89,24 +94,18 @@ function Layout({children}: { children: ReactNode }) {
                         className="fixed top-[69px] inset-0 z-10 bg-white"
                     >
                         <div className="flex flex-col p-8 space-y-6">
-                            <div
-                                className="text-2xl font-light"
-                                onClick={() => setMenuOpen(false)}
-                            >
-                                Início
-                            </div>
-                            <div
-                                className="text-2xl font-light"
-                                onClick={() => setMenuOpen(false)}
-                            >
-                                Eventos
-                            </div>
-                            <div
-                                className="text-2xl font-light"
-                                onClick={() => setMenuOpen(false)}
-                            >
-                                Detalhes
-                            </div>
+                            {sections.map((section) => (
+                                <div
+                                    key={section.path}
+                                    className="text-2xl font-light"
+                                    onClick={() => {
+                                        setMenuOpen(false);
+                                        goTo(section.path);
+                                    }}
+                                >
+                                    {section.name}
+                                </div>
+                            ))}
                         </div>
                     </motion.div>
                 )}
@@ -114,6 +113,7 @@ function Layout({children}: { children: ReactNode }) {
 
             <main className="pt-[70px] min-h-screen">
                 <motion.div
+                    className={`container mx-auto px-4 py-8 ${ darkMode ? 'bg-gray-900 text-gray-100' : 'bg-white text-gray-900' }`}
                     key={window.location.pathname}
                     initial={pageTransition.initial}
                     animate={pageTransition.animate}
@@ -127,21 +127,4 @@ function Layout({children}: { children: ReactNode }) {
     );
 }
 
-export default Layout
-// const [glowEffect, setGlowEffect] = useState(false)
-//
-// // Efeito pulsante para elementos de destaque
-// useEffect(() => {
-//     const interval = setInterval(() => {
-//         setGlowEffect(prev => !prev)
-//     }, 2000)
-//     return () => clearInterval(interval)
-// }, [])
-//
-//
-// return (
-//     <div className="w-screen h-screen flex-column items-center justify-center bg-gray-800">
-//         <Header/>
-//         <Banner glowEffect={glowEffect} />
-//     </div>
-// )
+export default Layout;

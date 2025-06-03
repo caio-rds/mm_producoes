@@ -1,3 +1,5 @@
+import type {ReactElement} from "react";
+
 export type EventType = {
     id: string;
     title: string;
@@ -13,5 +15,36 @@ export type EventType = {
 
 export type Theme = {
     darkMode: boolean;
-    setDarkMode: (darkMode: boolean) => void;
+    toggleDarkMode: (mode: boolean) => void;
+}
+
+export interface EventProps {
+    event: EventType;
+    index: number;
+}
+
+export interface ExpanderProps {
+    title: string;
+    description: string;
+    isOpen: boolean;
+    onClick: (key: number) => void;
+}
+
+export interface HiddenButtonProps {
+    key: number | string;
+    onClick: () => void;
+    label: string;
+    icon: ReactElement;
+    isOpen: boolean;
+    theme?: boolean;
+}
+
+export type ServiceType = {
+    name: string;
+    icon: ReactElement;
+    contain: Array<{
+        title: string;
+        image: string | ReactElement | null;
+    }>;
+    description: string;
 }
