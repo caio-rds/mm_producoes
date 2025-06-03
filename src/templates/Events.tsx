@@ -4,73 +4,7 @@ import { Calendar, Filter, Search } from "lucide-react";
 import type {EventType} from "../@types";
 import Event from "../components/Event.tsx";
 
-const events: EventType[] = [
-    {
-        id: "68198352d0e33561876b0b41",
-        title: "Handcraft Workshop",
-        description: "Learn the art of pottery from master craftspeople. All materials included, suitable for beginners.",
-        location: "Creative Studio",
-        date: new Date("2023-08-19T14:00:00Z"),
-        time: "14:00",
-        category: "workshop",
-        imageUrl: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-    },
-    {
-        id: "68198352d0e33561876b0b40",
-        title: "Tech Startup Mixer",
-        description: "Network with fellow entrepreneurs and investors in a casual setting. Light refreshments provided.",
-        location: "Innovation Hub",
-        date: new Date("2023-07-28T18:00:00Z"),
-        time: "18:00",
-        category: "party",
-        imageUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1412&q=80"
-    },
-    {
-        id: "68198352d0e33561876b0b42",
-        title: "Garden Charity Gala",
-        description: "An elegant evening fundraiser supporting environmental conservation, with live music and gourmet dining.",
-        location: "Botanical Gardens",
-        date: new Date("2023-09-23T19:00:00Z"),
-        time: "19:00",
-        category: "other",
-        imageUrl: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-    },
-    {
-        id: "68198352d0e33561876b0b3e",
-        title: "Sarah's 30th Birthday",
-        description: "Celebrating three decades of Sarah! Join us for cocktails, dancing, and cake on the beautiful city rooftop.",
-        location: "Skyline Rooftop Lounge",
-        date: new Date("2023-08-12T19:30:00Z"),
-        time: "19:30",
-        category: "birthday",
-        imageUrl: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-    },
-    {
-        id: "68198352d0e33561876b0b3d",
-        title: "Summer Music Festival",
-        description: "Join us for a night of amazing live music under the stars. Featuring top local bands and delicious food vendors.",
-        location: "Sunset Beach Park",
-        date: new Date("2023-07-15T18:00:00Z"),
-        time: "18:00",
-        category: "concert",
-        imageUrl: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-    },
-    {
-        id: "68198352d0e33561876b0b3f",
-        title: "Modern Art Exhibition",
-        description: "Experience the cutting-edge of contemporary art with installations from renowned international artists.",
-        location: "Downtown Gallery",
-        date: new Date("2023-09-05T10:00:00Z"),
-        time: "10:00",
-        category: "exhibition",
-        imageUrl: "https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-    }
-
-    // Add more events as needed
-];
-
-
-export default function Events() {
+export default function Events({events}: {events: EventType[]}) {
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
@@ -127,7 +61,7 @@ export default function Events() {
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <input
                         type="text"
-                        placeholder="Search for events..."
+                        placeholder="Procure por eventos..."
                         className="w-full pl-10 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-1 focus:ring-black"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}

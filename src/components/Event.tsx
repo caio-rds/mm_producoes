@@ -4,10 +4,16 @@ import {motion} from "framer-motion";
 import type {EventProps} from "../@types";
 
 const Event = (props: EventProps) => {
+
+    const push = () => {
+        window.location.href = `/events/${props.event.id}`;
+    }
+
     return (
         <motion.div
             key={props.event.id}
             className="group"
+            onClick={push}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}

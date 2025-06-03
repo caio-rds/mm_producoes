@@ -34,7 +34,7 @@ export default function Contact() {
         {
             icon: MapPin,
             title: 'Endereço',
-            content: 'São Paulo, SP',
+            content: 'Rio de Janeiro, RJ',
             action: null
         },
         {

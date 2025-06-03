@@ -2,7 +2,7 @@ import {type ReactNode, type FC, useState, useEffect} from "react";
 import {ThemeContext} from "../context/ThemeContext.tsx";
 
 
-export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const MainProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const [darkMode, setDarkMode] = useState<boolean>(false)
 
